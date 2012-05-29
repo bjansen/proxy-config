@@ -1,6 +1,10 @@
-*.class
+# MacOS files
+.DS_Store
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# IDEA files
+*.iml
+*.ipr
+*.iws
+
+# Maven files
+target
