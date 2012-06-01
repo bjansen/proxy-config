@@ -8,10 +8,10 @@ import com.excilys.proxyconfig.sources.ConfigurationSource;
 import com.excilys.proxyconfig.transformers.DefaultMethodNameTransformers;
 import com.excilys.proxyconfig.transformers.MethodNameTransformer;
 import com.excilys.proxyconfig.typecasters.CompositeTypeCaster;
+import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
 import com.excilys.proxyconfig.typecasters.TypeCaster;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -19,24 +19,28 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
 
     private static final String METHOD_PREFIX = "get";
     private final ConfigurationSource configurationSource;
-    private final TypeCaster typeCaster;
+    private final List<TypeCaster> typeCasters = new ArrayList<TypeCaster>();
     private List<MethodNameTransformer> transformers;
 
     public ConfigurationInvocationHandler(ConfigurationSource configurationSource) {
         this(configurationSource, null);
     }
 
-    public ConfigurationInvocationHandler(ConfigurationSource configurationSource, TypeCaster typeCaster) {
+    public ConfigurationInvocationHandler(ConfigurationSource configurationSource, List<TypeCaster> typeCasters) {
         this.configurationSource = configurationSource;
 
-        if (typeCaster == null) {
-            this.typeCaster = CompositeTypeCaster.forPrimitiveTypes();
+        if (typeCasters == null || typeCasters.isEmpty()) {
+            this.typeCasters.addAll(Arrays.asList(PrimitiveTypesCaster.values()));
         } else {
-            this.typeCaster = typeCaster;
+            this.typeCasters.addAll(typeCasters);
         }
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if (method.getReturnType().equals(Void.TYPE)) {
+            return null;
+        }
+
         String methodName = method.getName();
 
         String prefix = findKeyPrefix(method);
@@ -95,19 +99,9 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
     }
 
     private Object castReturnValue(String keyName, Object value, Method method, Object[] args) {
-        if (method.getReturnType().equals(String.class)) {
-            if (args == null) {
-                return value.toString();
-            } else {
-                return MessageFormat.format(value.toString(), args);
-            }
-        } else if (typeCaster.accepts(value, method.getReturnType())) {
-            return typeCaster.cast(value, method.getReturnType());
-        }  else {
-            String error = String.format("Return type of method %s cannot be casted from configuration %s (%s)",
-                    method.toGenericString(), keyName, value.getClass().getName());
-            throw new TypeException(error);
-        }
+        InvocationContext context = new InvocationContext(keyName, value, method, args, typeCasters);
+
+        return context.cast(value, method.getReturnType());
     }
 
     private String findDefaultValue(Method method) {

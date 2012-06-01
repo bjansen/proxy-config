@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CompositeTypeCaster implements TypeCaster {
+public class CompositeTypeCaster implements TypeCaster<Object> {
 
     private List<TypeCaster> casters = new ArrayList<TypeCaster>();
 
@@ -17,7 +17,7 @@ public class CompositeTypeCaster implements TypeCaster {
     }
 
     @Override
-    public <T> boolean accepts(Object obj, Class<T> targetType) {
+    public boolean accepts(Object obj, Class<?> targetType) {
         for (TypeCaster caster : casters) {
             if (caster.accepts(obj, targetType)) {
                 return true;
@@ -28,7 +28,7 @@ public class CompositeTypeCaster implements TypeCaster {
     }
 
     @Override
-    public <T> T cast(Object obj, Class<T> targetType) {
+    public Object cast(Object obj, Class<Object> targetType) {
         for (TypeCaster caster : casters) {
             if (caster.accepts(obj, targetType)) {
                 return caster.cast(obj, targetType);

@@ -6,21 +6,21 @@ package com.excilys.proxyconfig.typecasters;
  * @author bjansen
  * @since 1.0
  */
-public class EnumTypeCaster implements TypeCaster {
+public class EnumTypeCaster<E extends Enum> implements TypeCaster<E> {
 
     @Override
-    public <T> boolean accepts(Object obj, Class<T> targetType) {
+    public boolean accepts(Object obj, Class<?> targetType) {
         return targetType.isEnum();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T cast(Object obj, Class<T> targetType) {
+    public E cast(Object obj, Class<E> targetType) {
         Class<? extends Enum> enumType = targetType.asSubclass(Enum.class);
 
         for (Enum constant : enumType.getEnumConstants()) {
             if (constant.name().equalsIgnoreCase(obj.toString())) {
-                return (T) constant;
+                return (E) constant;
             }
         }
 

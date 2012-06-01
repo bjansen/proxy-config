@@ -1,6 +1,6 @@
 package com.excilys.proxyconfig.typecasters;
 
-public interface TypeCaster {
+public interface TypeCaster<T> {
 
     /**
      * Checks whether this type caster can cast an object to the type <code>targetType</code>.
@@ -10,7 +10,7 @@ public interface TypeCaster {
      * @param targetType the target type of the cast
      * @return true if the given <code>obj</code> can be casted to the type <code>targetType</code>, false otherwise.
      */
-    public <T> boolean accepts(Object obj, Class<T> targetType);
+    public boolean accepts(Object obj, Class<?> targetType);
 
     /**
      * Casts the given object to the specified target type. Calls to this method should preferably be preceded by a call to
@@ -21,5 +21,5 @@ public interface TypeCaster {
      * @param targetType the target type of the cast
      * @return an representation of <code>obj</code> casted to the specified type <code>targetType</code>
      */
-    public <T> T cast(Object obj, Class<T> targetType);
+    public T cast(Object obj, Class<T> targetType);
 }

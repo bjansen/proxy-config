@@ -4,14 +4,16 @@ import com.excilys.proxyconfig.exceptions.TypeException;
 import com.excilys.proxyconfig.ConfigurationFactory;
 import com.excilys.proxyconfig.sources.PropertiesConfigurationSource;
 import com.excilys.proxyconfig.transformers.DefaultMethodNameTransformers;
-import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
+import com.excilys.proxyconfig.typecasters.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -24,6 +26,9 @@ public class ApplicationConfigTest {
         ConfigurationFactory.setMethodNameTransformers(DefaultMethodNameTransformers.values());
         ConfigurationFactory.setConfigurationSource(new PropertiesConfigurationSource("configuration/app-config.properties"));
         ConfigurationFactory.setTypeCasters(PrimitiveTypesCaster.values());
+        ConfigurationFactory.addTypeCaster(new ListTypeCaster());
+        ConfigurationFactory.addTypeCaster(new ArrayTypeCaster());
+        ConfigurationFactory.addTypeCaster(new MessageFormatTypeCaster());
         configuration = ConfigurationFactory.getConfiguration(ApplicationConfig.class);
     }
 
@@ -84,8 +89,29 @@ public class ApplicationConfigTest {
         assertNull(configuration.whatAmIDoingHere());
     }
 
-    @Test(expected = TypeException.class)
-    public void voidMethodsThrowException() {
+    @Test
+    public void voidMethodsAreSilentlyIgnored() {
         configuration.getVoidReturn();
+    }
+
+    @Test
+    public void arraysAreRecognized() {
+        String[] expected = new String[]{"one", "two", "three"};
+
+        assertArrayEquals(expected, configuration.getArrayOfString());
+    }
+
+    @Test
+    public void listOfString() {
+        String[] expected = new String[]{"one", "two", "three"};
+
+        assertEquals(Arrays.asList(expected), configuration.getListOfString());
+    }
+
+    @Test
+    public void listOfIntegers() {
+        Integer[] expected = new Integer[]{1, 2, 3};
+
+        assertEquals(Arrays.asList(expected), configuration.getListOfInt());
     }
 }

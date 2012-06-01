@@ -6,62 +6,62 @@ package com.excilys.proxyconfig.typecasters;
  * @author bjansen
  * @since 1.0
  */
-public enum PrimitiveTypesCaster implements TypeCaster {
+public enum PrimitiveTypesCaster implements TypeCaster<Object> {
 
     BYTE(Byte.class, Byte.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Byte.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Byte.valueOf(obj.toString());
         }
     },
     SHORT(Short.class, Short.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Short.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Short.valueOf(obj.toString());
         }
     },
     INT(Integer.class, Integer.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Integer.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Integer.valueOf(obj.toString());
         }
     },
     LONG(Long.class, Long.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Long.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Long.valueOf(obj.toString());
         }
     },
     FLOAT(Float.class, Float.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Float.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Float.valueOf(obj.toString());
         }
     },
     DOUBLE(Double.class, Double.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Double.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Double.valueOf(obj.toString());
         }
     },
     BOOLEAN(Double.class, Double.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Boolean.valueOf(obj.toString());
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Boolean.valueOf(obj.toString());
         }
     },
     CHAR(Character.class, Character.TYPE) {
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T cast(Object obj, Class<T> targetType) {
-            return (T) Character.valueOf(obj.toString().charAt(0));
+        public Object cast(Object obj, Class<Object> targetType) {
+            return Character.valueOf(obj.toString().charAt(0));
         }
     };
 
@@ -72,7 +72,7 @@ public enum PrimitiveTypesCaster implements TypeCaster {
     }
 
     @Override
-    public <T> boolean accepts(Object obj, Class<T> targetType) {
+    public boolean accepts(Object obj, Class<?> targetType) {
         for (Class acceptedType : acceptedTypes) {
             if (targetType.isAssignableFrom(acceptedType)) {
                 return true;

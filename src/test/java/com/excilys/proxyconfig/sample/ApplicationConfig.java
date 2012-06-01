@@ -1,6 +1,9 @@
 package com.excilys.proxyconfig.sample;
 
+import com.excilys.proxyconfig.annotations.ConfigurationKey;
+
 import java.util.Date;
+import java.util.List;
 
 public interface ApplicationConfig {
 
@@ -29,4 +32,11 @@ public interface ApplicationConfig {
     public void getVoidReturn();
 
     public char getCharacter();
+
+    public String[] getArrayOfString();
+
+    @ConfigurationKey(value = "array.of.string", fullyQualified = true)
+    public List<String> getListOfString();
+
+    public List<Integer> getListOfInt();
 }
