@@ -1,10 +1,13 @@
 package com.excilys.proxyconfig.sample;
 
-import com.excilys.proxyconfig.exceptions.TypeException;
 import com.excilys.proxyconfig.ConfigurationFactory;
+import com.excilys.proxyconfig.exceptions.TypeException;
 import com.excilys.proxyconfig.sources.PropertiesConfigurationSource;
 import com.excilys.proxyconfig.transformers.DefaultMethodNameTransformers;
-import com.excilys.proxyconfig.typecasters.*;
+import com.excilys.proxyconfig.typecasters.ArrayTypeCaster;
+import com.excilys.proxyconfig.typecasters.ListTypeCaster;
+import com.excilys.proxyconfig.typecasters.MessageFormatTypeCaster;
+import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,9 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class ApplicationConfigTest {
 

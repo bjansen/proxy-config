@@ -3,9 +3,6 @@ package com.excilys.proxyconfig;
 import com.excilys.proxyconfig.internal.ConfigurationInvocationHandler;
 import com.excilys.proxyconfig.sources.ConfigurationSource;
 import com.excilys.proxyconfig.transformers.MethodNameTransformer;
-import com.excilys.proxyconfig.typecasters.CompositeTypeCaster;
-import com.excilys.proxyconfig.typecasters.ListTypeCaster;
-import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
 import com.excilys.proxyconfig.typecasters.TypeCaster;
 
 import java.lang.reflect.Proxy;

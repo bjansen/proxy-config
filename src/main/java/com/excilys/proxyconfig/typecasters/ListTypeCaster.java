@@ -8,7 +8,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListTypeCaster implements TypeCaster<List>, InvocationContextAware {
+/**
+ * A type caster for {@link List}s of arbitrary objects that are supported by the InvocationContext.
+ *
+ * @author bjansen
+ * @since 1.0
+ */
+public class ListTypeCaster extends AbstractCaster<List> implements InvocationContextAware {
 
     @Override
     public boolean accepts(Object obj, Class<?> targetType) {
@@ -19,11 +25,12 @@ public class ListTypeCaster implements TypeCaster<List>, InvocationContextAware 
     public List cast(Object obj, Class<List> targetType) {
         InvocationContext context = (InvocationContext) obj;
 
-        String[] parts = context.getValue().toString().split("\\s*,\\s*");
+        Method method = context.getMethod();
+        String[] parts = context.getValue().toString().split(getSeparator(method));
         List<Object> result = new ArrayList<Object>();
 
         for (int i = 0; i < parts.length; i++) {
-            Class<?> parameterType = findParameterType(context.getMethod());
+            Class<?> parameterType = findParameterType(method);
 
             result.add(context.cast(parts[i], parameterType));
         }

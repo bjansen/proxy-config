@@ -6,7 +6,12 @@ import com.excilys.proxyconfig.internal.InvocationContextAware;
 import java.text.MessageFormat;
 
 /**
- * TODO
+ * A type caster that allows formatting the value using the method's parameters.
+ * This implementation relies on {@link MessageFormat} so values can use its patterns.
+ *
+ * @author bjansen
+ * @since 1.0
+ * @see MessageFormat
  */
 public class MessageFormatTypeCaster implements TypeCaster<String>, InvocationContextAware {
     @Override

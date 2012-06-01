@@ -32,8 +32,4 @@ public class PropertiesConfigurationSource implements ConfigurationSource {
     public Object getValue(String key) {
         return properties.get(key);
     }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
 }

@@ -3,8 +3,6 @@ package com.excilys.proxyconfig.sample;
 import com.excilys.proxyconfig.ConfigurationFactory;
 import com.excilys.proxyconfig.sources.PropertiesConfigurationSource;
 import com.excilys.proxyconfig.transformers.DefaultMethodNameTransformers;
-import com.excilys.proxyconfig.typecasters.ArrayTypeCaster;
-import com.excilys.proxyconfig.typecasters.ListTypeCaster;
 import com.excilys.proxyconfig.typecasters.MessageFormatTypeCaster;
 import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
 import org.junit.Before;

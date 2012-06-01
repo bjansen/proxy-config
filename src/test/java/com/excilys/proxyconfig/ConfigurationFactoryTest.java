@@ -5,7 +5,6 @@ import com.excilys.proxyconfig.sample.ApplicationConfig;
 import com.excilys.proxyconfig.sources.PropertiesConfigurationSource;
 import com.excilys.proxyconfig.transformers.DefaultMethodNameTransformers;
 import com.excilys.proxyconfig.typecasters.PrimitiveTypesCaster;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
