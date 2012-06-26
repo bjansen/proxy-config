@@ -72,3 +72,7 @@ proxy-config ships a default set of transformers, sources and casters:
 * ResourceBundleConfigurationSource and PropertiesConfigurationSource to load your config from a properties file
 
 You can also create your own subclasses of ConfigurationSource, MethodNameTransformer and TypeCaster if this is not enough!
+
+Comparison with other tools
+---------------------------
+A spreadsheet comparing features provided by proxy-config and similar tools is available [here](https://docs.google.com/a/excilys.com/spreadsheet/ccc?key=0AndG-zBLycfndEI4UmJTdkZOZEV3bEUwdUxRZi1raFE#gid=0)
