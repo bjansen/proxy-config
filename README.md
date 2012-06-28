@@ -76,3 +76,11 @@ You can also create your own subclasses of ConfigurationSource, MethodNameTransf
 Comparison with other tools
 ---------------------------
 A spreadsheet comparing features provided by proxy-config and similar tools is available [here](https://docs.google.com/a/excilys.com/spreadsheet/ccc?key=0AndG-zBLycfndEI4UmJTdkZOZEV3bEUwdUxRZi1raFE#gid=0)
+
+Testimonial
+-----------
+
+YourKit is kindly supporting open source projects with its full-featured Java Profiler.
+YourKit, LLC is the creator of innovative and intelligent tools for profiling
+Java and .NET applications. Take a look at YourKit's leading software products:
+[YourKit Java Profiler](http://www.yourkit.com/java/profiler/index.jsp) and [YourKit .NET Profiler](http://www.yourkit.com/.net/profiler/index.jsp).
